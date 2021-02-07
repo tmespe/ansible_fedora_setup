@@ -11,6 +11,17 @@
       package: 
         name: lutris
         state: present
+    - name: Install git 
+      become: yes
+      package:
+        name: git
+        state: present
+    - name: Git configuration
+      become: yes
+      shell: |
+        git config --global user.name "Terje Espedal"
+        git config --global user.email "terje.m.espedal@gmail.com"
+        git config --global color.ui true
     - name: Install pop-os shell
       become: yes
       package: 
@@ -54,6 +65,8 @@
       retries: 3
       delay: 5
       command: sudo snap install code --classic
+    - name: Install PyCharm
+      command: flatpak install --assumeyes flathub com.jetbrains.PyCharm-Professional
     - name: Install Vivaldi
       become: yes
       shell: |
@@ -63,3 +76,4 @@
     - name: Install hyper terminal
       shell: |
         wget https://releases.hyper.is/download/rpm
+
