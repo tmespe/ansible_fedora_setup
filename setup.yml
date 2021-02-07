@@ -1,0 +1,65 @@
+- name: Default install script for new machine
+  hosts: localhost
+  tasks:
+    - name: Install gnome-tweaks
+      become: yes
+      package: 
+        name: gnome-tweaks
+        state: present
+    - name: Install lutris
+      become: yes
+      package: 
+        name: lutris
+        state: present
+    - name: Install pop-os shell
+      become: yes
+      package: 
+        name: gnome-shell-extension-pop-shell
+        state: present
+    - name: Install psutil
+      become: yes
+      package: 
+        name: python3-psutil
+        state: present    
+    - name: Install ansible community general
+      become: yes
+      command: ansible-galaxy collection install community.general
+    - name: Enable Night Light
+      dconf:
+        key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+        value: "true"
+        state: present
+    - name: Enable Flathub repository
+      become: yes
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    - name: Install Fractal
+      become: yes
+      command: flatpak install --assumeyes flathub org.gnome.Fractal
+    - name: Install Discord
+      become: yes
+      command: flatpak install --assumeyes flathub com.discordapp.Discord
+    - name: Install Spotify
+      become: yes
+      command: flatpak install --assumeyes flathub com.spotify.Client
+    - name: Install VLC
+      become: yes
+      command: flatpak install flathub org.videolan.VLC
+    - name: Install snapd
+      become: yes
+      shell: |
+        dnf -y install snapd
+        ln -s /var/lib/snapd/snap /snap
+    - name: Install vscode
+      become: yes
+      retries: 3
+      delay: 5
+      command: sudo snap install code --classic
+    - name: Install Vivaldi
+      become: yes
+      shell: |
+        dnf -y install dnf-utils
+        dnf -y config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+        dnf -y install vivaldi-stable
+    - name: Install hyper terminal
+      shell: |
+        wget https://releases.hyper.is/download/rpm
