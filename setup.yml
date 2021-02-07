@@ -36,6 +36,7 @@
       become: yes
       command: ansible-galaxy collection install community.general
     - name: Enable Night Light
+      ignore-errors: true
       dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
         value: "true"
