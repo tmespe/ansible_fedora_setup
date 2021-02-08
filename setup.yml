@@ -22,16 +22,19 @@
         name: git
         state: present
     - name: Enable the RPM Fusion free repository
+      become: yes
       package:
         name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
     - name: Enable the RPM Fusion non-free repository
+      become: yes
       package:
         name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
     - name: Enable the RPM Fusion non-free repository
+      become: yes
       package:
         name:
           - akmod-nvidia
