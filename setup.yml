@@ -5,7 +5,7 @@
       ansible.builtin.debug:
         var: ansible_fact
     - name: Check if Nvidia
-      shell: lspci | grep Nvidia | grep Gigabit | awk '{print $1}'
+      shell: lspci | grep Nvidia 
       register: nvidia
     - name: DNF update the system
       become: yes
@@ -46,7 +46,7 @@
           - akmod-nvidia
           - xorg-x11-drv-nvidia-cuda
         state: present
-      when: (ansible_distribution == 'Fedora') and (lspci |grep == 'NVIDIA')
+      when: (ansible_distribution == 'Fedora') and (nvidia != "")
     - name: Git configuration
       become: yes
       shell: |
