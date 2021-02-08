@@ -5,7 +5,7 @@
       ansible.builtin.debug:
         var: ansible_facts
     - name: Check if Nvidia
-      shell: lspci | grep Nvidia 
+      shell: lspci | grep NVIDIA 
       register: nvidia
     - name: DNF update the system
       become: yes
@@ -39,14 +39,6 @@
         name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
-    - name: Enable the RPM Fusion non-free repository
-      become: yes
-      package:
-        name:
-          - akmod-nvidia
-          - xorg-x11-drv-nvidia-cuda
-        state: present
-      when: (ansible_distribution == 'Fedora') and (nvidia != "")
     - name: Git configuration
       become: yes
       shell: |
