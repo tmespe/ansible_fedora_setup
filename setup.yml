@@ -3,7 +3,7 @@
   tasks:
     - name: Print all available facts
       ansible.builtin.debug:
-        var: ansible_fact
+        var: ansible_facts
     - name: Check if Nvidia
       shell: lspci | grep Nvidia 
       register: nvidia
