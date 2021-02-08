@@ -1,6 +1,11 @@
 - name: Default install script for new machine
   hosts: localhost
   tasks:
+    - name: DNF update the system
+      become: yes
+      dnf:
+        name:  "*"
+        state: latest  
     - name: Install gnome-tweaks
       become: yes
       package: 
