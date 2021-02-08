@@ -22,6 +22,11 @@
       package: 
         name: lutris
         state: present
+    - name: Install lutris
+      become: yes
+      package: 
+        name: steam
+        state: present
     - name: Install git 
       become: yes
       package:
